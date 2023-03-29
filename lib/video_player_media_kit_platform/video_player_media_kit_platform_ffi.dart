@@ -7,13 +7,26 @@ import 'package:media_kit_video/media_kit_video.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:stream_transform/stream_transform.dart';
 
-class VideoPlayerMediaKit extends VideoPlayerPlatform {
-  Map<int, Player> players = {};
-  Map<int, int> playersHandles = {};
 
+
+
+
+
+
+
+
+class VideoPlayerMediaKit extends VideoPlayerPlatform {
+  ///`players`: A map that stores the initialized video players. The keys of the map are unique integers assigned to each player, and the values are instances of the Player class.
+  Map<int, Player> players = {};
+
+  ///`controllers`: A map that stores the video controllers for each player. The keys are unique integers assigned to each player, and the values are instances of the VideoController class.
   Map<int, VideoController> controllers = {};
-  //workaround to know if the player is initialized
+
+  ///`durations`: A map that stores the duration of each video in microseconds for which the player is initialized. The keys are unique integers assigned to each player.
+  ///used to know when player is initialized
   Map<int, int> durations = {};
+
+  ///`counter`: An integer that is used to assign unique IDs to each player instance. The IDs are used as keys in the players, and controllers maps.
   int counter = 0;
 
   /// Registers this class as the default instance of [PathProviderPlatform].
@@ -41,10 +54,6 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       // scale: 1.0, // default
       // showControls: false,
     );
-  }
-
-  Future<int> getPlayerHandle(int player) async {
-    return playersHandles[player]!;
   }
 
   String? mapToStringList(Map<String, String> map) {
