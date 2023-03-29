@@ -1,4 +1,4 @@
 
-void initVideoPlayerDartVlcIfNeeded() {
+void initVideoPlayerMediaKitIfNeeded() {
  
 }
