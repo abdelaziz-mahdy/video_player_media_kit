@@ -1,39 +1,34 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## Video Player Media Kit
+Video Player Media Kit is a platform interface for video player using media_kit to work on Windows and Linux. This interface allows you to play videos seamlessly in your flutter application.
+## How to use
+To use Video Player Media Kit in your application, follow the steps below:
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```
+dependencies:
+  video_player_media_kit: ^0.0.2
 ```
 
-## Additional information
+2.  Import the package in your Dart code
+```
+import 'package:video_player_dart_vlc/video_player_media_kit.dart';
+```
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+3.  Initialize the Video Player Media Kit interface in the main function of your app
+
+```
+void main() {
+  initVideoPlayerMediaKitIfNeeded();
+  runApp(MyApp());
+}
+```
+
+
+`video_player` is the package used for playing videos on Android, iOS, and web platforms.
+
+`media_kit` is the package used for handling multimedia functionalities on Windows, Linux, and macOS platforms.
+
+
+## License
+Video Player Media Kit is licensed under the MIT License.
