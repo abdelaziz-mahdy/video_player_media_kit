@@ -29,6 +29,3 @@ void main() {
 
 `media_kit` is the package used for handling multimedia functionalities on Windows, Linux, and macOS platforms.
 
-
-## License
-Video Player Media Kit is licensed under the MIT License.
