@@ -32,8 +32,9 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
   @override
   Widget buildView(int textureId) {
+    // print(controllers[textureId]);
     return Video(
-      controller: controllers[textureId],
+      controller: controllers[textureId]!,
 
       // height: 1920.0,
       // width: 1080.0,
@@ -46,84 +47,66 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     return playersHandles[player]!;
   }
 
-  String mapToStringList(Map<String, String> map) {
+  String? mapToStringList(Map<String, String> map) {
     String list = "";
     map.forEach((key, value) {
       list += "'$key: $value',";
     });
-    if (list.length == 0) {
-      return list;
+    if (list.isEmpty) {
+      return null;
     }
     return list.substring(0, list.length - 1);
   }
 
   @override
   Future<int?> create(DataSource dataSource) async {
-    counter++;
-    String? refer, userAgent;
-    if (dataSource.sourceType == DataSourceType.network) {
-      refer = dataSource.httpHeaders["Referer"];
-      userAgent = dataSource.httpHeaders["User-Agent"];
-    }
+    Player player = Player(
+        configuration: const PlayerConfiguration(
+            logLevel: MPVLogLevel.trace)); // create a new video controller
+    int id = counter++;
 
+    players[id] = player;
+
+    player.setPlaylistMode(PlaylistMode.loop);
+    String? refer, userAgent, headersListString;
+    refer = dataSource.httpHeaders["Referer"];
+    userAgent = dataSource.httpHeaders["User-Agent"];
+    headersListString = mapToStringList(dataSource.httpHeaders);
     //print('--http-referrer=' + refer);
 
-    Player player = Player(
-        // id: counter,
-        // commandlineArguments: [
-        //   //"-vvv",
-        //   '--http-referrer=' + refer,
-        //   '--http-reconnect',
-        //   '--sout-livehttp-caching',
-        //   '--network-caching=60000',
-        //   '--file-caching=60000'
-        // ],
-        //registerTexture: !Platform.isWindows
-        ); // create a new video controller
     if (refer != null) {
       (player.platform as libmpvPlayer).setProperty("referrer", refer);
     }
     if (userAgent != null) {
       (player.platform as libmpvPlayer).setProperty("user-agent", userAgent);
     }
-    print("headers list ${mapToStringList(dataSource.httpHeaders)}");
-    (player.platform as libmpvPlayer).setProperty(
-        "http-header-fields", mapToStringList(dataSource.httpHeaders));
 
+    if (headersListString != null) {
+      (player.platform as libmpvPlayer)
+          .setProperty("http-header-fields", headersListString);
+    }
+
+    // int id = await player.handle;
+    // playersHandles[counter] = id;
     controllers[counter] = await VideoController.create(player.handle);
-
+    // print(dataSource.asset);
+    // print(dataSource.uri);
     if (dataSource.sourceType == DataSourceType.asset) {
-      player.open(Playlist([
-        Media(dataSource.asset!),
-      ])
-
+      player.open(Media(dataSource.asset!), play: false
           // autoStart: _autoplay,
           );
     } else if (dataSource.sourceType == DataSourceType.network) {
-      // print(dataSource.source!);
-      player.open(Playlist([
-        Media(dataSource.uri!),
-      ])
-
-          // autoStart: _autoplay,
-          );
+      player.open(Media(dataSource.uri!), play: false);
     } else {
       if (!await File.fromUri(Uri.parse(dataSource.uri!)).exists()) {
         throw Exception("${dataSource.uri!} not found ");
       }
-      player.open(Playlist([
-        Media(dataSource.uri!),
-      ])
-
+      player.open(Media(dataSource.uri!), play: false
           // autoStart: _autoplay,
           );
     }
 
-    int id = await player.handle;
-    playersHandles[counter] = id;
-    players[counter] = player;
-
-    return counter;
+    return id;
   }
 
   @override
@@ -155,18 +138,18 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
   @override
   Future<void> setPlaybackSpeed(int textureId, double speed) async {
-    // assert(speed > 0);
-    // return players[textureId]!.setRate(speed);
+    assert(speed > 0);
+    return players[textureId]!.setRate(speed);
   }
 
   @override
   Future<void> setVolume(int textureId, double volume) async {
-    // return players[textureId]!.setVolume(volume);
+    return players[textureId]!.setVolume(volume * 100);
   }
 
   @override
   Future<void> dispose(int textureId) async {
-    // print("disposed player $textureId");
+    print("disposed player $textureId");
     // players[textureId]!.playbackStream.listen((element) {
     //   print("is playing ${element.isPlaying}");
     // });
@@ -176,23 +159,23 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     pause(textureId);
     players[textureId]!.dispose();
     players.remove(textureId);
+    controllers[textureId]!.dispose();
     return;
   }
 
   @override
   Stream<VideoEvent> videoEventsFor(int textureId) {
     Stream<VideoEvent> isCompleted =
-        players[textureId]!.streams.isCompleted.map((event) {
-      print("isCompleted $event");
+        players[textureId]!.streams.completed.map((event) {
+      // print("isCompleted $event");
 
       return VideoEvent(
-        eventType:
-            event ? VideoEventType.initialized : VideoEventType.completed,
+        eventType: event ? VideoEventType.unknown : VideoEventType.completed,
       );
     });
     Stream<VideoEvent> initializedStream() async* {
       await for (final event in players[textureId]!.streams.duration) {
-        print("duration $event");
+        // print("duration $event");
         if (event != Duration.zero) {
           if (!durations.containsKey(textureId) ||
               (durations[textureId] ?? 0) != event.inMicroseconds) {
@@ -205,17 +188,17 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
               rotationCorrection: 0,
             );
 
-            yield VideoEvent(
-              buffered: [
-                (DurationRange(
-                    Duration.zero,
-                    Duration(
-                        seconds: ((100) *
-                                players[textureId]!.state.position.inSeconds)
-                            .round())))
-              ],
-              eventType: VideoEventType.bufferingUpdate,
-            );
+            // yield VideoEvent(
+            //   buffered: [
+            //     (DurationRange(
+            //         Duration.zero,
+            //         Duration(
+            //             seconds: ((100) *
+            //                     players[textureId]!.state.position.inSeconds)
+            //                 .round())))
+            //   ],
+            //   eventType: VideoEventType.bufferingUpdate,
+            // );
           }
         }
         yield VideoEvent(
@@ -225,8 +208,8 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     }
 
     Stream<VideoEvent> buffering =
-        players[textureId]!.streams.isBuffering.map((event) {
-      print("isBuffering $event");
+        players[textureId]!.streams.buffering.map((event) {
+      // print("isBuffering $event");
       if (event) {
         return VideoEvent(
           buffered: [

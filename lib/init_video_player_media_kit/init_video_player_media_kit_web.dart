@@ -1,4 +1,4 @@
 
-void initVideoPlayerMediaKitIfNeeded() {
+void initVideoPlayerMediaKitIfNeeded({bool iosUseMediaKit=false}) {
  
 }
