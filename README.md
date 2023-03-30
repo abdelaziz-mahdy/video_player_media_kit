@@ -1,31 +1,67 @@
 ## Video Player Media Kit
-Video Player Media Kit is a platform interface for video player using media_kit to work on Windows and Linux. This interface allows you to play videos seamlessly in your flutter application.
+Video Player Media Kit is a platform interface for video player using media_kit to work on Windows and Linux and macos. This interface allows you to play videos seamlessly in your flutter application.
+
+Note: this package allows video_player to work across platforms
+
+`video_player` is the package used for playing videos on Android, iOS, and web platforms.
+
+`media_kit` is the package used for handling multimedia functionalities on Windows, Linux, and macOS platforms.
+
 ## How to use
 To use Video Player Media Kit in your application, follow the steps below:
 
-1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
+1. Setup
+
+### Windows
+
+Everything ready.
+
+### Linux
+
+System shared libraries from distribution specific user-installed packages are used by-default. You can install these as follows.
+
+#### Ubuntu / Debian
+
+```bash
+sudo apt install libmpv-dev mpv
+```
+
+#### Packaging
+
+There are other ways to bundle these within your app package e.g. within Snap or Flatpak. Few examples:
+
+- [Celluloid](https://github.com/celluloid-player/celluloid/blob/master/flatpak/io.github.celluloid_player.Celluloid.json)
+- [VidCutter](https://github.com/ozmartian/vidcutter/tree/master/_packaging)
+
+### macOS
+
+Everything ready.
+
+### iOS
+
+Everything ready.
+
+
+2. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
 
 ```
 dependencies:
   video_player_media_kit: ^0.0.2
 ```
 
-2.  Import the package in your Dart code
+3.  Import the package in your Dart code
 ```
 import 'package:video_player_dart_vlc/video_player_media_kit.dart';
 ```
 
-3.  Initialize the Video Player Media Kit interface in the main function of your app
+4.  Initialize the Video Player Media Kit interface in the main function of your app
 
 ```
 void main() {
-  initVideoPlayerMediaKitIfNeeded();
+  initVideoPlayerMediaKitIfNeeded(); //parameter iosUseMediaKit can be used to make ios use media_kit instead of video_player
   runApp(MyApp());
 }
 ```
 
-
-`video_player` is the package used for playing videos on Android, iOS, and web platforms.
-
-`media_kit` is the package used for handling multimedia functionalities on Windows, Linux, and macOS platforms.
+now video_player will work on any platform.
 
