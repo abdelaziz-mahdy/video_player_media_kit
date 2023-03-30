@@ -67,11 +67,9 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         configuration: const PlayerConfiguration(
             logLevel: MPVLogLevel.trace)); // create a new video controller
     int id = counter++;
-
     players[id] = player;
-    streams[id] = StreamController<VideoEvent>();
     initStreams(id);
-
+    controllers[id] = await VideoController.create(player.handle);
     player.setPlaylistMode(PlaylistMode.loop);
     String? refer, userAgent, headersListString;
     refer = dataSource.httpHeaders["Referer"];
@@ -93,7 +91,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
     // int id = await player.handle;
     // playersHandles[counter] = id;
-    controllers[counter] = await VideoController.create(player.handle);
+    
     // print(dataSource.asset);
     // print(dataSource.uri);
     if (dataSource.sourceType == DataSourceType.asset) {
@@ -110,18 +108,17 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
           // autoStart: _autoplay,
           );
     }
-
     return id;
   }
 
   void initStreams(int textureId) {
-    players[textureId]!.streams.completed.map((event) {
-      // print("isCompleted $event");
+    streams[textureId] = StreamController<VideoEvent>();
+    players[textureId]!.streams.completed.listen((event) {
       streams[textureId]!.add(VideoEvent(
         eventType: event ? VideoEventType.unknown : VideoEventType.completed,
       ));
     });
-    players[textureId]!.streams.duration.map((event) {
+    players[textureId]!.streams.duration.listen((event) {
       if (event != Duration.zero) {
         if (!durations.containsKey(textureId) ||
             (durations[textureId] ?? 0) != event.inMicroseconds) {
@@ -136,7 +133,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         }
       }
     });
-    players[textureId]!.streams.buffering.map((event) {
+    players[textureId]!.streams.buffering.listen((event) {
       if (event) {
         streams[textureId]!.add(VideoEvent(
           buffered: [
@@ -155,7 +152,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       }
     });
 
-    players[textureId]!.streams.error.map((event) {
+    players[textureId]!.streams.error.listen((event) {
       // print("isBuffering $event");
 
       streams[textureId]!.addError(PlatformException(
