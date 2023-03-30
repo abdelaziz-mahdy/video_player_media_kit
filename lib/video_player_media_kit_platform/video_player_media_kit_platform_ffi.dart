@@ -2,18 +2,11 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 import 'package:stream_transform/stream_transform.dart';
-
-
-
-
-
-
-
-
 
 class VideoPlayerMediaKit extends VideoPlayerPlatform {
   ///`players`: A map that stores the initialized video players. The keys of the map are unique integers assigned to each player, and the values are instances of the Player class.
@@ -22,12 +15,15 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   ///`controllers`: A map that stores the video controllers for each player. The keys are unique integers assigned to each player, and the values are instances of the VideoController class.
   Map<int, VideoController> controllers = {};
 
-  ///`durations`: A map that stores the duration of each video in microseconds for which the player is initialized. The keys are unique integers assigned to each player.
+  ///`ducontrollersrations`: A map that stores the duration of each video in microseconds for which the player is initialized. The keys are unique integers assigned to each player.
   ///used to know when player is initialized
   Map<int, int> durations = {};
 
   ///`counter`: An integer that is used to assign unique IDs to each player instance. The IDs are used as keys in the players, and controllers maps.
   int counter = 0;
+
+  ///`streams`: A map that stores the streams controllers for each player.
+  Map<int, StreamController<VideoEvent>> streams = {};
 
   /// Registers this class as the default instance of [PathProviderPlatform].
   static void registerWith() {
@@ -75,7 +71,9 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     int id = counter++;
 
     players[id] = player;
-
+    streams[id] = StreamController<VideoEvent>();
+    initStreams(id);
+    
     player.setPlaylistMode(PlaylistMode.loop);
     String? refer, userAgent, headersListString;
     refer = dataSource.httpHeaders["Referer"];
@@ -116,6 +114,57 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     }
 
     return id;
+  }
+
+  void initStreams(int textureId) {
+    players[textureId]!.streams.completed.map((event) {
+      // print("isCompleted $event");
+      streams[textureId]!.add(VideoEvent(
+        eventType: event ? VideoEventType.unknown : VideoEventType.completed,
+      ));
+    });
+    players[textureId]!.streams.duration.map((event) {
+      if (event != Duration.zero) {
+        if (!durations.containsKey(textureId) ||
+            (durations[textureId] ?? 0) != event.inMicroseconds) {
+          durations[textureId] = event.inMicroseconds;
+          streams[textureId]!.add(VideoEvent(
+            eventType: VideoEventType.initialized,
+            duration: event,
+            size: Size(controllers[textureId]!.rect.value!.width,
+                controllers[textureId]!.rect.value!.height),
+            rotationCorrection: 0,
+          ));
+        }
+      }
+    });
+    players[textureId]!.streams.buffering.map((event) {
+      if (event) {
+        streams[textureId]!.add(VideoEvent(
+          buffered: [
+            (DurationRange(
+                Duration.zero,
+                // Duration.zero,
+                Duration(
+                    seconds: (players[textureId]!.state.position.inSeconds + 1)
+                        .round())))
+          ],
+          eventType: VideoEventType.bufferingUpdate,
+        ));
+      } else {
+        streams[textureId]!
+            .add(VideoEvent(eventType: VideoEventType.bufferingEnd));
+      }
+    });
+
+    players[textureId]!.streams.error.map((event) {
+      // print("isBuffering $event");
+
+      streams[textureId]!.addError(PlatformException(
+        code: event.code.toString(),
+        message: event.message,
+      ));
+    });
   }
 
   @override
@@ -167,78 +216,17 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     //     .firstWhere((event) => !event.isPlaying);
     pause(textureId);
     players[textureId]!.dispose();
-    players.remove(textureId);
     controllers[textureId]!.dispose();
+    streams[textureId]!.close();
+    players.remove(textureId);
+    controllers.remove(textureId);
+    streams.remove(textureId);
     return;
   }
 
   @override
   Stream<VideoEvent> videoEventsFor(int textureId) {
-    Stream<VideoEvent> isCompleted =
-        players[textureId]!.streams.completed.map((event) {
-      // print("isCompleted $event");
-
-      return VideoEvent(
-        eventType: event ? VideoEventType.unknown : VideoEventType.completed,
-      );
-    });
-    Stream<VideoEvent> initializedStream() async* {
-      await for (final event in players[textureId]!.streams.duration) {
-        // print("duration $event");
-        if (event != Duration.zero) {
-          if (!durations.containsKey(textureId) ||
-              (durations[textureId] ?? 0) != event.inMicroseconds) {
-            durations[textureId] = event.inMicroseconds;
-            yield VideoEvent(
-              eventType: VideoEventType.initialized,
-              duration: event,
-              size: Size(controllers[textureId]!.rect.value!.width,
-                  controllers[textureId]!.rect.value!.height),
-              rotationCorrection: 0,
-            );
-
-            // yield VideoEvent(
-            //   buffered: [
-            //     (DurationRange(
-            //         Duration.zero,
-            //         Duration(
-            //             seconds: ((100) *
-            //                     players[textureId]!.state.position.inSeconds)
-            //                 .round())))
-            //   ],
-            //   eventType: VideoEventType.bufferingUpdate,
-            // );
-          }
-        }
-        yield VideoEvent(
-          eventType: VideoEventType.unknown,
-        );
-      }
-    }
-
-    Stream<VideoEvent> buffering =
-        players[textureId]!.streams.buffering.map((event) {
-      // print("isBuffering $event");
-      if (event) {
-        return VideoEvent(
-          buffered: [
-            (DurationRange(
-              Duration.zero,
-              Duration.zero,
-              // Duration(
-              //     seconds: ((event / 100) *
-              //             players[textureId]!.position.duration!.inSeconds)
-              //         .round())
-            ))
-          ],
-          eventType: VideoEventType.bufferingUpdate,
-        );
-      } else {
-        return VideoEvent(eventType: VideoEventType.bufferingEnd);
-      }
-    });
-
-    return isCompleted.mergeAll([initializedStream(), buffering]);
+    return streams[textureId]!.stream;
   }
 
   /// setLooping (ignored)
