@@ -91,7 +91,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
     // int id = await player.handle;
     // playersHandles[counter] = id;
-    
+
     // print(dataSource.asset);
     // print(dataSource.uri);
     if (dataSource.sourceType == DataSourceType.asset) {
@@ -134,6 +134,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       }
     });
     players[textureId]!.streams.buffering.listen((event) {
+      // print("buffering $event");
       if (event) {
         streams[textureId]!.add(VideoEvent(
           buffered: [

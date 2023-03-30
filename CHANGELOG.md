@@ -1,3 +1,8 @@
+## 0.0.3
+
+* Reduce sdk limits 
+  
+  
 ## 0.0.2
 
 * Fixed buffering.
