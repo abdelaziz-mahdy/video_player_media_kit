@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
-import 'package:stream_transform/stream_transform.dart';
 
 class VideoPlayerMediaKit extends VideoPlayerPlatform {
   ///`players`: A map that stores the initialized video players. The keys of the map are unique integers assigned to each player, and the values are instances of the Player class.
@@ -73,7 +71,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     players[id] = player;
     streams[id] = StreamController<VideoEvent>();
     initStreams(id);
-    
+
     player.setPlaylistMode(PlaylistMode.loop);
     String? refer, userAgent, headersListString;
     refer = dataSource.httpHeaders["Referer"];
@@ -207,7 +205,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
   @override
   Future<void> dispose(int textureId) async {
-    print("disposed player $textureId");
+    // print("disposed player $textureId");
     // players[textureId]!.playbackStream.listen((element) {
     //   print("is playing ${element.isPlaying}");
     // });
