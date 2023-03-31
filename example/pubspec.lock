@@ -177,7 +177,7 @@ packages:
     source: hosted
     version: "0.0.2"
   media_kit_libs_ios_video:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: media_kit_libs_ios_video
       sha256: "8d253d50ff83afbfb9d64afd1684d437312195d1eedb6d3e4270d5c30757f004"
@@ -193,7 +193,7 @@ packages:
     source: hosted
     version: "1.0.1"
   media_kit_libs_macos_video:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: media_kit_libs_macos_video
       sha256: "3942001bdb1f555d17d28be56d10082c23921535f3fd5509c945a0bf94189fdc"

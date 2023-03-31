@@ -32,14 +32,25 @@ There are other ways to bundle these within your app package e.g. within Snap or
 
 - [Celluloid](https://github.com/celluloid-player/celluloid/blob/master/flatpak/io.github.celluloid_player.Celluloid.json)
 - [VidCutter](https://github.com/ozmartian/vidcutter/tree/master/_packaging)
-
 ### macOS
 
-Everything ready.
+Everything ready. Just add one of the following packages to your `pubspec.yaml`.
+
+```yaml
+dependencies:
+  ...
+  media_kit_libs_macos_video: ^1.0.0       # macOS package for video (& audio) native libraries.
+```
 
 ### iOS
 
-Everything ready.
+Everything ready. Just add one of the following packages to your `pubspec.yaml`.
+
+```yaml
+dependencies:
+  ...
+  media_kit_libs_ios_video: ^1.0.0         # iOS package for video (& audio) native libraries.
+```
 
 
 2. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:

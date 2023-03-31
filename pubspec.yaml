@@ -13,14 +13,7 @@ dependencies:
   media_kit: ^0.0.2
   # For video rendering.
   media_kit_video: ^0.0.2
-  # Enables support for higher number of concurrent instances. Optional.
-  media_kit_native_event_loop: ^1.0.1
-  # Pick based on your requirements / platform:
-  media_kit_libs_windows_video: ^1.0.1          # Windows package for video (& audio) native libraries.
-  media_kit_libs_ios_video: ^1.0.0              # iOS package for video (& audio) native libraries.
-  media_kit_libs_macos_video: ^1.0.0            # macOS package for video (& audio) native libraries.
-  media_kit_libs_linux: ^1.0.1                  # Linux dependency package.
-  
+
   video_player_platform_interface: ^6.0.1
   stream_transform: ^2.1.0
   universal_platform: ^1.0.0+1
