@@ -14,13 +14,15 @@ import 'package:video_player_media_kit/video_player_media_kit.dart';
 void main() {
   initVideoPlayerMediaKitIfNeeded();
   runApp(
-    MaterialApp(
-      home: _App(),
+    const MaterialApp(
+      home: App(),
     ),
   );
 }
 
-class _App extends StatelessWidget {
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
