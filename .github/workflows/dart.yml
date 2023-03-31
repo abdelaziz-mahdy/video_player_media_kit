@@ -71,8 +71,8 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: cd macos && pod install && cd ..
-      - run: flutter build macos --verbose
+      # - run: cd macos && pod install && cd ..
+      - run: flutter build macos 
 
   ios:
     name: iOS
@@ -85,5 +85,5 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter build ios --verbose --no-codesign
+      - run: flutter build ios  --no-codesign
 
