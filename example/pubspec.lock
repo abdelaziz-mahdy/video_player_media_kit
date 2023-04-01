@@ -193,12 +193,13 @@ packages:
     source: hosted
     version: "1.0.1"
   media_kit_libs_macos_video:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      name: media_kit_libs_macos_video
-      sha256: "3942001bdb1f555d17d28be56d10082c23921535f3fd5509c945a0bf94189fdc"
-      url: "https://pub.dev"
-    source: hosted
+      path: media_kit_libs_macos_video
+      ref: "6fc3720bea0b162262c9dc48e655b34cfa66903f"
+      resolved-ref: "6fc3720bea0b162262c9dc48e655b34cfa66903f"
+      url: "https://github.com/birros/media_kit"
+    source: git
     version: "1.0.0"
   media_kit_libs_windows_video:
     dependency: transitive

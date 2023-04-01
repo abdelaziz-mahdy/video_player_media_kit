@@ -34,7 +34,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-dep_overrides:
+dependency_overrides:
+
   media_kit_libs_macos_video:
     git:
       url: https://github.com/birros/media_kit
