@@ -27,6 +27,7 @@ dependencies:
     path: ../
   file_picker: ^5.2.4
   visibility_detector: ^0.3.3
+  media_kit_libs_ios_video: ^1.0.0              # iOS package for video (& audio) native libraries.
 
 
   # The following adds the Cupertino Icons font to your application.

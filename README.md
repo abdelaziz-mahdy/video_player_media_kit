@@ -34,17 +34,12 @@ There are other ways to bundle these within your app package e.g. within Snap or
 - [VidCutter](https://github.com/ozmartian/vidcutter/tree/master/_packaging)
 ### macOS
 
-Everything ready. Just add one of the following packages to your `pubspec.yaml`.
+Everything ready.
 
-```yaml
-dependencies:
-  ...
-  media_kit_libs_macos_video: ^1.0.0       # macOS package for video (& audio) native libraries.
-```
+### iOS (replace original video_player with media_kit one)
 
-### iOS
-
-Everything ready. Just add one of the following packages to your `pubspec.yaml`.
+1. set IPHONEOS_DEPLOYMENT_TARGET to 13.0 in `ios\Runner.xcodeproj\project.pbxproj`
+2. Just add this package in case you set iosUseMediaKit to true in initVideoPlayerMediaKitIfNeeded
 
 ```yaml
 dependencies:
@@ -53,7 +48,7 @@ dependencies:
 ```
 
 
-2. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
+1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
 
 ```
 dependencies:
