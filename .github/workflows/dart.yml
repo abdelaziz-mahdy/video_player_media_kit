@@ -71,7 +71,7 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      # - run: cd macos && pod install && cd ..
+      - run: cd macos && pod install && cd ..
       - run: flutter build macos 
 
   ios:
