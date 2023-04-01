@@ -1,3 +1,7 @@
+## 0.0.4
+
+* Updated readme and fixed macos and ios errors
+  
 ## 0.0.3
 
 * Reduce sdk limits 
