@@ -1,3 +1,4 @@
+import 'package:media_kit/media_kit.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:video_player_media_kit/video_player_media_kit_platform/video_player_media_kit_platform_ffi.dart';
 
@@ -12,11 +13,11 @@ import 'package:video_player_media_kit/video_player_media_kit_platform/video_pla
 ///
 /// Parameters:
 /// - `iosUseMediaKit`: A boolean value indicating whether to register the plugin on iOS.
-void initVideoPlayerMediaKitIfNeeded({bool iosUseMediaKit=false}) {
+void initVideoPlayerMediaKitIfNeeded({bool iosUseMediaKit=false,MPVLogLevel logLevel = MPVLogLevel.warn}) {
   if((UniversalPlatform.isWindows||UniversalPlatform.isLinux||UniversalPlatform.isMacOS)&&!UniversalPlatform.isWeb){
-    VideoPlayerMediaKit.registerWith();
+    VideoPlayerMediaKit.registerWith(logLevel:logLevel);
   }
   if(UniversalPlatform.isIOS&&iosUseMediaKit){
-    VideoPlayerMediaKit.registerWith();
+    VideoPlayerMediaKit.registerWith(logLevel:logLevel);
   }
 }

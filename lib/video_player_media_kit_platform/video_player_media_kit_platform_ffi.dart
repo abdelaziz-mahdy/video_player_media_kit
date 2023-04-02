@@ -7,6 +7,10 @@ import 'package:media_kit_video/media_kit_video.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 
 class VideoPlayerMediaKit extends VideoPlayerPlatform {
+  VideoPlayerMediaKit({this.logLevel = MPVLogLevel.warn});
+
+  MPVLogLevel logLevel;
+
   ///`players`: A map that stores the initialized video players. The keys of the map are unique integers assigned to each player, and the values are instances of the Player class.
   Map<int, Player> players = {};
 
@@ -24,8 +28,8 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   Map<int, StreamController<VideoEvent>> streams = {};
 
   /// Registers this class as the default instance of [PathProviderPlatform].
-  static void registerWith() {
-    VideoPlayerPlatform.instance = VideoPlayerMediaKit();
+  static void registerWith({MPVLogLevel logLevel = MPVLogLevel.none}) {
+    VideoPlayerPlatform.instance = VideoPlayerMediaKit(logLevel:logLevel);
 
     return;
   }
@@ -64,8 +68,8 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   @override
   Future<int?> create(DataSource dataSource) async {
     Player player = Player(
-        configuration: const PlayerConfiguration(
-            logLevel: MPVLogLevel.trace)); // create a new video controller
+        configuration: PlayerConfiguration(
+            logLevel: logLevel)); // create a new video controller
     int id = counter++;
     players[id] = player;
     initStreams(id);

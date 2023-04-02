@@ -9,6 +9,6 @@
 ///
 /// Parameters:
 /// - `iosUseMediaKit`: A boolean value indicating whether to register the plugin on iOS.
-void initVideoPlayerMediaKitIfNeeded({bool iosUseMediaKit=false}) {
+void initVideoPlayerMediaKitIfNeeded({bool iosUseMediaKit=false,dynamic logLevel}) {
  
 }

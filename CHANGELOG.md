@@ -1,3 +1,7 @@
+## 0.0.5
+
+* Added option to define logs level in initVideoPlayerMediaKitIfNeeded
+  
 ## 0.0.4
 
 * Updated readme and fixed macos and ios errors
