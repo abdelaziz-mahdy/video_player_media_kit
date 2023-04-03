@@ -32,37 +32,33 @@ There are other ways to bundle these within your app package e.g. within Snap or
 
 - [Celluloid](https://github.com/celluloid-player/celluloid/blob/master/flatpak/io.github.celluloid_player.Celluloid.json)
 - [VidCutter](https://github.com/ozmartian/vidcutter/tree/master/_packaging)
+
+
+## Note: macos is not tested (if you have any problems open an issue)
 ### macOS
 
-Due to media_kit compilation fails these needs to be added (thats a workaround for now until this fix is released)
+Everything ready.
 
-```yaml
-dependency_overrides:
-  media_kit:
-    git:
-      url: https://github.com/zezo357/media_kit
-      ref: 6fc3720bea0b162262c9dc48e655b34cfa66903f
-      path: ./media_kit
-  media_kit_video:
-    git:
-      url: https://github.com/zezo357/media_kit
-      ref: 6fc3720bea0b162262c9dc48e655b34cfa66903f
-      path: ./media_kit_video
-  media_kit_libs_ios_video:
-    git:
-      url: https://github.com/zezo357/media_kit
-      ref: 6fc3720bea0b162262c9dc48e655b34cfa66903f
-      path: ./media_kit_libs_ios_video
-  media_kit_native_event_loop:
-    git:
-      url: https://github.com/zezo357/media_kit
-      ref: 6fc3720bea0b162262c9dc48e655b34cfa66903f
-      path: ./media_kit_native_event_loop
-  media_kit_libs_macos_video:
-    git:
-      url: https://github.com/zezo357/media_kit
-      ref: 6fc3720bea0b162262c9dc48e655b34cfa66903f
-      path: ./media_kit_libs_macos_video
+
+The minimum supported macOS version is 11.0
+
+Also, during the build phase, the following warnings are not critical and cannot be silenced:
+
+```log
+#import "Headers/media_kit_video-Swift.h"
+        ^
+/path/to/media_kit/media_kit_test/build/macos/Build/Products/Debug/media_kit_video/media_kit_video.framework/Headers/media_kit_video-Swift.h:270:31: warning: 'objc_ownership' only applies to Objective-C object or block pointer types; type here is 'CVPixelBufferRef' (aka 'struct __CVBuffer *')
+- (CVPixelBufferRef _Nullable __unsafe_unretained)copyPixelBuffer SWIFT_WARN_UNUSED_RESULT;
+```
+
+```log
+# 1 "<command line>" 1
+ ^
+<command line>:20:9: warning: 'POD_CONFIGURATION_DEBUG' macro redefined
+#define POD_CONFIGURATION_DEBUG 1 DEBUG=1 
+        ^
+#define POD_CONFIGURATION_DEBUG 1
+        ^
 ```
 
 
@@ -74,7 +70,7 @@ dependency_overrides:
 ```yaml
 dependencies:
   ...
-  media_kit_libs_ios_video: ^1.0.0         # iOS package for video (& audio) native libraries.
+  media_kit_libs_ios_video: ^1.0.1         # iOS package for video (& audio) native libraries.
 ```
 
 
@@ -82,7 +78,7 @@ dependencies:
 
 ```
 dependencies:
-  video_player_media_kit: ^0.0.2
+  video_player_media_kit: ^0.0.5
 ```
 
 3.  Import the package in your Dart code

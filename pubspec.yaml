@@ -17,7 +17,7 @@ dependencies:
   media_kit_native_event_loop: ^1.0.1
   # Pick based on your requirements / platform:
   media_kit_libs_windows_video: ^1.0.1          # Windows package for video (& audio) native libraries.
-  media_kit_libs_macos_video: ^1.0.0            # macOS package for video (& audio) native libraries.
+  media_kit_libs_macos_video: ^1.0.1            # macOS package for video (& audio) native libraries.
   media_kit_libs_linux: ^1.0.1                  # Linux dependency package.
   # media_kit:
   #   git:
