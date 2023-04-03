@@ -1,4 +1,9 @@
 ## Video Player Media Kit
+
+<a target="blank" href="https://pub.dev/packages/video_player_media_kit"><img src="https://img.shields.io/pub/v/video_player_media_kit?include_prereleases&style=flat-square"/></a>
+<img src="https://img.shields.io/github/last-commit/zezo357/video_player_media_kit/master?style=flat-square"/>
+<img src="https://img.shields.io/github/license/zezo357/video_player_media_kit?style=flat-square"/>
+
 Video Player Media Kit is a platform interface for video player using media_kit to work on Windows and Linux and macos. This interface allows you to play videos seamlessly in your flutter application.
 
 Note: this package allows video_player to work across platforms
