@@ -19,31 +19,8 @@ dependencies:
   media_kit_libs_windows_video: ^1.0.1          # Windows package for video (& audio) native libraries.
   media_kit_libs_macos_video: ^1.0.1            # macOS package for video (& audio) native libraries.
   media_kit_libs_linux: ^1.0.1                  # Linux dependency package.
-  # media_kit:
-  #   git:
-  #     url: https://github.com/birros/media_kit
-  #     ref: fix/fix-darwin-libs
-  #     path: ./media_kit
-  # media_kit_video:
-  #   git:
-  #     url: https://github.com/birros/media_kit
-  #     ref: fix/fix-darwin-libs
-  #     path: ./media_kit_video
-  # media_kit_libs_macos_video:
-  #   git:
-  #     url: https://github.com/birros/media_kit
-  #     ref: fix/fix-darwin-libs
-  #     path: ./media_kit_libs_macos_video
-  # media_kit_libs_ios_video:
-  #   git:
-  #     url: https://github.com/birros/media_kit
-  #     ref: fix/fix-darwin-libs
-  #     path: ./media_kit_libs_ios_video
-  # media_kit_native_event_loop:
-  #   git:
-  #     url: https://github.com/birros/media_kit
-  #     ref: fix/fix-darwin-libs
-  #     path: ./media_kit_native_event_loop
+  # media_kit_libs_ios_video: ^1.0.1         # iOS package for video (& audio) native libraries.
+
   video_player_platform_interface: ^6.0.1
   stream_transform: ^2.1.0
   universal_platform: ^1.0.0+1

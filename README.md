@@ -45,7 +45,7 @@ There are other ways to bundle these within your app package e.g. within Snap or
 Everything ready.
 
 
-The minimum supported macOS version is 11.0
+The minimum supported macOS version is 11.0,set MACOSX_DEPLOYMENT_TARGET = 11.0 `macos\Runner.xcodeproj\project.pbxproj`
 
 Also, during the build phase, the following warnings are not critical and cannot be silenced:
 
@@ -69,7 +69,7 @@ Also, during the build phase, the following warnings are not critical and cannot
 
 ### iOS (replace original video_player with media_kit one)
 
-1. set IPHONEOS_DEPLOYMENT_TARGET to 13.0 in `ios\Runner.xcodeproj\project.pbxproj`
+1. The minimum supported iOS version is 13.0,set IPHONEOS_DEPLOYMENT_TARGET to 13.0 in `ios\Runner.xcodeproj\project.pbxproj`
 2. Just add this package in case you set iosUseMediaKit to true in initVideoPlayerMediaKitIfNeeded
 
 ```yaml
