@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  media_kit: ^0.0.2
+  media_kit: ^0.0.3
   # For video rendering.
   media_kit_video: ^0.0.2
   # Enables support for higher number of concurrent instances. Optional.
