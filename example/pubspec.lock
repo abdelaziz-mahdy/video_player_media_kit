@@ -177,7 +177,7 @@ packages:
     source: hosted
     version: "0.0.3"
   media_kit_libs_ios_video:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: media_kit_libs_ios_video
       sha256: "867e993a11896784efbdd2daaa713ae3c12d466332aa1836d7d398e502bb215b"
@@ -212,18 +212,18 @@ packages:
     dependency: transitive
     description:
       name: media_kit_native_event_loop
-      sha256: "2b38c83a4c98100d65c92a1bf382247f101dc7534685186e27bedb7b20fcc272"
+      sha256: "677ea41d13a2013ca7fe050674eac3b5d891185d4300779727a5860a85cdda60"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   media_kit_video:
     dependency: transitive
     description:
       name: media_kit_video
-      sha256: f9987d92182f42852fa77e5ca98d11a91482b9f45f7a559ca3453f258026041b
+      sha256: "65990eb4d7e9b1d9b9791ace4da7780f70ae0ced2e96f3e8de85324787740781"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.2"
+    version: "0.0.3"
   meta:
     dependency: transitive
     description:
