@@ -75,7 +75,7 @@ Also, during the build phase, the following warnings are not critical and cannot
 ```yaml
 dependencies:
   ...
-  media_kit_libs_ios_video: ^1.0.1         # iOS package for video (& audio) native libraries.
+  media_kit_libs_ios_video: ^1.0.2         # iOS package for video (& audio) native libraries.
 ```
 
 
