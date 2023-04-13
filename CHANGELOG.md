@@ -1,3 +1,7 @@
+## 0.0.6
+
+* fix asset playing by adding asset:// if not added
+
 ## 0.0.5
 
 * Added option to define logs level in initVideoPlayerMediaKitIfNeeded

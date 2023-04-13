@@ -29,7 +29,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
   /// Registers this class as the default instance of [PathProviderPlatform].
   static void registerWith({MPVLogLevel logLevel = MPVLogLevel.none}) {
-    VideoPlayerPlatform.instance = VideoPlayerMediaKit(logLevel:logLevel);
+    VideoPlayerPlatform.instance = VideoPlayerMediaKit(logLevel: logLevel);
 
     return;
   }
@@ -99,7 +99,10 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     // print(dataSource.asset);
     // print(dataSource.uri);
     if (dataSource.sourceType == DataSourceType.asset) {
-      player.open(Media(dataSource.asset!), play: false
+      final assetName = dataSource.asset!;
+      final assetUrl =
+          assetName.startsWith("asset://") ? assetName : "asset://$assetName";
+      player.open(Media(assetUrl), play: false
           // autoStart: _autoplay,
           );
     } else if (dataSource.sourceType == DataSourceType.network) {
