@@ -1,3 +1,8 @@
+## 0.0.7
+
+* set demuxer-lavf-o -> protocol_whitelist=[file,tcp,tls,http,https] to fix m3u8 quality
+  
+
 ## 0.0.6
 
 * fix asset playing by adding asset:// if not added

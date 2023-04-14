@@ -70,6 +70,9 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     Player player = Player(
         configuration: PlayerConfiguration(
             logLevel: logLevel)); // create a new video controller
+
+    (player.platform as libmpvPlayer).setProperty("demuxer-lavf-o", "protocol_whitelist=[file,tcp,tls,http,https]");
+
     int id = counter++;
     players[id] = player;
     initStreams(id);
