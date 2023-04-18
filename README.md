@@ -75,9 +75,16 @@ Also, during the build phase, the following warnings are not critical and cannot
 ```yaml
 dependencies:
   ...
-  media_kit_libs_ios_video: ^1.0.2         # iOS package for video (& audio) native libraries.
+  media_kit_libs_ios_video: ^1.0.4               # iOS package for video native libraries.
 ```
 
+### Android (replace original video_player with media_kit one)
+
+```yaml
+dependencies:
+  ...
+  media_kit_libs_android_video: ^1.0.0           # Android package for video native libraries.
+```
 
 1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
 

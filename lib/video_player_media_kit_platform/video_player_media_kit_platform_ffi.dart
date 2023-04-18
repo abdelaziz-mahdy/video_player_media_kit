@@ -76,7 +76,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     int id = counter++;
     players[id] = player;
     initStreams(id);
-    controllers[id] = await VideoController.create(player.handle);
+    controllers[id] = await VideoController.create(player);
     player.setPlaylistMode(PlaylistMode.loop);
     String? refer, userAgent, headersListString;
     refer = dataSource.httpHeaders["Referer"];
@@ -144,23 +144,25 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       }
     });
     players[textureId]!.streams.buffering.listen((event) {
-      // print("buffering $event");
       if (event) {
         streams[textureId]!.add(VideoEvent(
-          buffered: [
-            (DurationRange(
-                Duration.zero,
-                // Duration.zero,
-                Duration(
-                    seconds: (players[textureId]!.state.position.inSeconds + 1)
-                        .round())))
-          ],
-          eventType: VideoEventType.bufferingUpdate,
+          eventType: VideoEventType.bufferingStart,
         ));
       } else {
         streams[textureId]!
             .add(VideoEvent(eventType: VideoEventType.bufferingEnd));
       }
+
+    });
+    players[textureId]!.streams.buffer.listen((event) {
+        streams[textureId]!.add(VideoEvent(
+          buffered: [
+            DurationRange(
+                Duration.zero,
+                event)
+          ],
+          eventType: VideoEventType.bufferingUpdate,
+        ));
     });
 
     players[textureId]!.streams.error.listen((event) {
