@@ -26,18 +26,22 @@ void initVideoPlayerMediaKitIfNeeded(
           UniversalPlatform.isLinux ||
           UniversalPlatform.isMacOS) &&
       !UniversalPlatform.isWeb) {
+         MediaKit.ensureInitialized();
     VideoPlayerMediaKit.registerWith(
         logLevel:
             logLevel == LogLevel.warn ? MPVLogLevel.warn : MPVLogLevel.none);
   }
   if (UniversalPlatform.isIOS && iosUseMediaKit) {
+     MediaKit.ensureInitialized();
     VideoPlayerMediaKit.registerWith(
         logLevel:
             logLevel == LogLevel.warn ? MPVLogLevel.warn : MPVLogLevel.none);
   }
   if (UniversalPlatform.isAndroid && androidUseMediaKit) {
+     MediaKit.ensureInitialized();
     VideoPlayerMediaKit.registerWith(
         logLevel:
             logLevel == LogLevel.warn ? MPVLogLevel.warn : MPVLogLevel.none);
   }
+
 }
