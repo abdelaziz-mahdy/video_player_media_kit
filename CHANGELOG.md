@@ -7,7 +7,7 @@
 * Updated the version of the media_kit_libs_ios_video package to 1.0.4, which provides video native libraries for iOS.
 * Modified the code in video_player_media_kit_platform_ffi.dart to improve buffering behavior during video playback.
 * Added instructions for using the media_kit_libs_android_video package to provide video native libraries for Android.
-
+* initVideoPlayerMediaKitIfNeeded added androidUseMediaKit
 ## 0.0.7
 
 * set demuxer-lavf-o -> protocol_whitelist=[file,tcp,tls,http,https] to fix m3u8 quality
