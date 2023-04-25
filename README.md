@@ -79,6 +79,7 @@ dependencies:
 ```
 
 ### Android (replace original video_player with media_kit one)
+1. Just add this package in case you set androidUseMediaKit to true in initVideoPlayerMediaKitIfNeeded
 
 ```yaml
 dependencies:
