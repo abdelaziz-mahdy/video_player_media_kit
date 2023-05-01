@@ -1,3 +1,6 @@
+## 0.0.9
+* Added set looping
+
 ## 0.0.8
 * Updated media_kit and media_kit_video dependencies to newer versions (0.0.5 and 0.0.6, respectively).
 * Updated media_kit_native_event_loop dependency to version 1.0.3, which provides better performance and support for a higher number of concurrent instances.

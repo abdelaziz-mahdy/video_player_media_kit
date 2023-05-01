@@ -71,7 +71,8 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         configuration: PlayerConfiguration(
             logLevel: logLevel)); // create a new video controller
 
-    (player.platform as libmpvPlayer).setProperty("demuxer-lavf-o", "protocol_whitelist=[file,tcp,tls,http,https]");
+    (player.platform as libmpvPlayer).setProperty(
+        "demuxer-lavf-o", "protocol_whitelist=[file,tcp,tls,http,https]");
 
     int id = counter++;
     players[id] = player;
@@ -124,6 +125,12 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   void initStreams(int textureId) {
     streams[textureId] = StreamController<VideoEvent>();
     players[textureId]!.streams.completed.listen((event) {
+      if (event) {
+        players[textureId]!.platform!.state = players[textureId]!
+            .platform!
+            .state
+            .copyWith(position: players[textureId]!.platform!.state.duration);
+      }
       streams[textureId]!.add(VideoEvent(
         eventType: event ? VideoEventType.unknown : VideoEventType.completed,
       ));
@@ -152,17 +159,12 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         streams[textureId]!
             .add(VideoEvent(eventType: VideoEventType.bufferingEnd));
       }
-
     });
     players[textureId]!.streams.buffer.listen((event) {
-        streams[textureId]!.add(VideoEvent(
-          buffered: [
-            DurationRange(
-                Duration.zero,
-                event)
-          ],
-          eventType: VideoEventType.bufferingUpdate,
-        ));
+      streams[textureId]!.add(VideoEvent(
+        buffered: [DurationRange(Duration.zero, event)],
+        eventType: VideoEventType.bufferingUpdate,
+      ));
     });
 
     players[textureId]!.streams.error.listen((event) {
@@ -237,9 +239,12 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     return streams[textureId]!.stream;
   }
 
-  /// setLooping (ignored)
+  /// setLooping
   @override
-  Future<void> setLooping(int textureId, bool looping) => Future<void>.value();
+  Future<void> setLooping(int textureId, bool looping) async {
+    return players[textureId]!
+        .setPlaylistMode(looping ? PlaylistMode.single : PlaylistMode.loop);
+  }
 
   /// Sets the audio mode to mix with other sources (ignored)
   @override
