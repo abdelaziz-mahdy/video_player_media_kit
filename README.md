@@ -8,9 +8,8 @@ Video Player Media Kit is a platform interface for video player using media_kit 
 
 Note: this package allows video_player to work across platforms
 
-`video_player` is the package used for playing videos on Android, iOS, and web platforms.
-
-`media_kit` is the package used for handling multimedia functionalities on Windows, Linux, and macOS platforms.
+* [video_player](https://pub.dev/packages/video_player) for Android, iOS, and web.
+* [media_kit](https://pub.dev/packages/media_kit) for desktop platforms.
 
 ## How to use
 To use Video Player Media Kit in your application, follow the steps below:
@@ -84,14 +83,14 @@ dependencies:
 ```yaml
 dependencies:
   ...
-  media_kit_libs_android_video: ^1.0.0           # Android package for video native libraries.
+  media_kit_libs_android_video: ^1.0.3           # Android package for video native libraries.
 ```
 
 1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
 
 ```
 dependencies:
-  video_player_media_kit: ^0.0.5
+  video_player_media_kit: ^0.0.10
 ```
 
 3.  Import the package in your Dart code

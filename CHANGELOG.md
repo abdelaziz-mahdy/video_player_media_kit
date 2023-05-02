@@ -1,3 +1,6 @@
+## 0.0.10
+* Updated media_kit packages 
+* Fixes playing on android 
 ## 0.0.9
 * Added set looping
 

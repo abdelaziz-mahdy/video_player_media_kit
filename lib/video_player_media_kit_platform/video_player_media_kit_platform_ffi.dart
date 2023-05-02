@@ -135,16 +135,51 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         eventType: event ? VideoEventType.unknown : VideoEventType.completed,
       ));
     });
+    players[textureId]!.streams.width.listen((event) {
+      // print("init width,,");
+      if ((!durations.containsKey(textureId) ||
+              (durations[textureId] ?? 0) !=
+                  players[textureId]!.state.duration.inMicroseconds) &&
+          (players[textureId]!.state.width != null &&
+              players[textureId]!.state.height != null)) {
+        streams[textureId]!.add(VideoEvent(
+          eventType: VideoEventType.initialized,
+          duration: players[textureId]!.state.duration,
+          size: Size(players[textureId]!.state.width!.toDouble(),
+              players[textureId]!.state.height!.toDouble()),
+          rotationCorrection: 0,
+        ));
+      }
+    });
+    players[textureId]!.streams.height.listen((event) {
+      // print("init height,,");
+      if ((!durations.containsKey(textureId) ||
+              (durations[textureId] ?? 0) !=
+                  players[textureId]!.state.duration.inMicroseconds) &&
+          (players[textureId]!.state.width != null &&
+              players[textureId]!.state.height != null)) {
+        streams[textureId]!.add(VideoEvent(
+          eventType: VideoEventType.initialized,
+          duration: players[textureId]!.state.duration,
+          size: Size(players[textureId]!.state.width!.toDouble(),
+              players[textureId]!.state.height!.toDouble()),
+          rotationCorrection: 0,
+        ));
+      }
+    });
     players[textureId]!.streams.duration.listen((event) {
       if (event != Duration.zero) {
-        if (!durations.containsKey(textureId) ||
-            (durations[textureId] ?? 0) != event.inMicroseconds) {
+        if ((!durations.containsKey(textureId) ||
+                (durations[textureId] ?? 0) != event.inMicroseconds) &&
+            (players[textureId]!.state.width != null &&
+                players[textureId]!.state.height != null)) {
+          // print("init");
           durations[textureId] = event.inMicroseconds;
           streams[textureId]!.add(VideoEvent(
             eventType: VideoEventType.initialized,
-            duration: event,
-            size: Size(controllers[textureId]!.rect.value!.width,
-                controllers[textureId]!.rect.value!.height),
+            duration: players[textureId]!.state.duration,
+            size: Size(players[textureId]!.state.width!.toDouble(),
+                players[textureId]!.state.height!.toDouble()),
             rotationCorrection: 0,
           ));
         }
