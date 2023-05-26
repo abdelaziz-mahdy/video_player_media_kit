@@ -83,14 +83,14 @@ dependencies:
 ```yaml
 dependencies:
   ...
-  media_kit_libs_android_video: ^1.0.3           # Android package for video native libraries.
+  media_kit_libs_android_video: ^1.0.4           # Android package for video native libraries.
 ```
 
 1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
 
 ```
 dependencies:
-  video_player_media_kit: ^0.0.10
+  video_player_media_kit: ^0.0.11
 ```
 
 3.  Import the package in your Dart code

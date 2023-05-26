@@ -77,7 +77,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     int id = counter++;
     players[id] = player;
     initStreams(id);
-    controllers[id] = await VideoController.create(player);
+    controllers[id] = VideoController(player);
     player.setPlaylistMode(PlaylistMode.loop);
     String? refer, userAgent, headersListString;
     refer = dataSource.httpHeaders["Referer"];
@@ -261,7 +261,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     //     .firstWhere((event) => !event.isPlaying);
     pause(textureId);
     players[textureId]!.dispose();
-    controllers[textureId]!.dispose();
+    // controllers[textureId]!.dispose();
     streams[textureId]!.close();
     players.remove(textureId);
     controllers.remove(textureId);
