@@ -79,23 +79,6 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     initStreams(id);
     controllers[id] = VideoController(player);
     player.setPlaylistMode(PlaylistMode.loop);
-    String? refer, userAgent, headersListString;
-    refer = dataSource.httpHeaders["Referer"];
-    userAgent = dataSource.httpHeaders["User-Agent"];
-    headersListString = mapToStringList(dataSource.httpHeaders);
-    //print('--http-referrer=' + refer);
-
-    if (refer != null) {
-      (player.platform as libmpvPlayer).setProperty("referrer", refer);
-    }
-    if (userAgent != null) {
-      (player.platform as libmpvPlayer).setProperty("user-agent", userAgent);
-    }
-
-    if (headersListString != null) {
-      (player.platform as libmpvPlayer)
-          .setProperty("http-header-fields", headersListString);
-    }
 
     // int id = await player.handle;
     // playersHandles[counter] = id;
@@ -106,16 +89,20 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       final assetName = dataSource.asset!;
       final assetUrl =
           assetName.startsWith("asset://") ? assetName : "asset://$assetName";
-      player.open(Media(assetUrl), play: false
-          // autoStart: _autoplay,
-          );
+      player.open(
+        Media(assetUrl, httpHeaders: dataSource.httpHeaders), play: false,
+
+        // autoStart: _autoplay,
+      );
     } else if (dataSource.sourceType == DataSourceType.network) {
-      player.open(Media(dataSource.uri!), play: false);
+      player.open(Media(dataSource.uri!, httpHeaders: dataSource.httpHeaders),
+          play: false);
     } else {
       if (!await File.fromUri(Uri.parse(dataSource.uri!)).exists()) {
         throw Exception("${dataSource.uri!} not found ");
       }
-      player.open(Media(dataSource.uri!), play: false
+      player.open(Media(dataSource.uri!, httpHeaders: dataSource.httpHeaders),
+          play: false
           // autoStart: _autoplay,
           );
     }

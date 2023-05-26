@@ -1,6 +1,7 @@
+## 0.0.12
+* Used media_kit http headers
 ## 0.0.11
 * Updated media_kit packages 
-* Used media_kit http headers
 ## 0.0.10
 * Updated media_kit packages 
 * Fixes playing on android 
