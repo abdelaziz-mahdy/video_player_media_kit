@@ -1,3 +1,5 @@
+## 0.0.13
+* limits media_kit versions to avoid future breaking changes
 ## 0.0.12
 * Used media_kit http headers
 ## 0.0.11
