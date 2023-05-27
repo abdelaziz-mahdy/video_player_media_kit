@@ -17,7 +17,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   ///`controllers`: A map that stores the video controllers for each player. The keys are unique integers assigned to each player, and the values are instances of the VideoController class.
   Map<int, VideoController> controllers = {};
 
-  ///`ducontrollersrations`: A map that stores the duration of each video in microseconds for which the player is initialized. The keys are unique integers assigned to each player.
+  ///`durations`: A map that stores the duration of each video in microseconds for which the player is initialized. The keys are unique integers assigned to each player.
   ///used to know when player is initialized
   Map<int, int> durations = {};
 
@@ -54,17 +54,6 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     );
   }
 
-  String? mapToStringList(Map<String, String> map) {
-    String list = "";
-    map.forEach((key, value) {
-      list += "'$key: $value',";
-    });
-    if (list.isEmpty) {
-      return null;
-    }
-    return list.substring(0, list.length - 1);
-  }
-
   @override
   Future<int?> create(DataSource dataSource) async {
     Player player = Player(
@@ -75,6 +64,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         "demuxer-lavf-o", "protocol_whitelist=[file,tcp,tls,http,https]");
 
     int id = counter++;
+    // print(id);
     players[id] = player;
     initStreams(id);
     controllers[id] = VideoController(player);
