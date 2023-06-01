@@ -1,6 +1,5 @@
 import 'package:media_kit/media_kit.dart';
 import 'package:universal_platform/universal_platform.dart';
-import 'package:video_player_media_kit/log_level.dart';
 import 'package:video_player_media_kit/video_player_media_kit_platform/video_player_media_kit_platform_ffi.dart';
 
 /// Initializes the VideoPlayerMediaKit plugin if running on a supported platform.
@@ -21,27 +20,20 @@ import 'package:video_player_media_kit/video_player_media_kit_platform/video_pla
 void initVideoPlayerMediaKitIfNeeded(
     {bool iosUseMediaKit = false,
     bool androidUseMediaKit = false,
-    LogLevel logLevel = LogLevel.warn}) {
+    MPVLogLevel logLevel = MPVLogLevel.warn}) {
   if ((UniversalPlatform.isWindows ||
           UniversalPlatform.isLinux ||
           UniversalPlatform.isMacOS) &&
       !UniversalPlatform.isWeb) {
-         MediaKit.ensureInitialized();
-    VideoPlayerMediaKit.registerWith(
-        logLevel:
-            logLevel == LogLevel.warn ? MPVLogLevel.warn : MPVLogLevel.none);
+    MediaKit.ensureInitialized();
+    VideoPlayerMediaKit.registerWith(logLevel: logLevel);
   }
   if (UniversalPlatform.isIOS && iosUseMediaKit) {
-     MediaKit.ensureInitialized();
-    VideoPlayerMediaKit.registerWith(
-        logLevel:
-            logLevel == LogLevel.warn ? MPVLogLevel.warn : MPVLogLevel.none);
+    MediaKit.ensureInitialized();
+    VideoPlayerMediaKit.registerWith(logLevel: logLevel);
   }
   if (UniversalPlatform.isAndroid && androidUseMediaKit) {
-     MediaKit.ensureInitialized();
-    VideoPlayerMediaKit.registerWith(
-        logLevel:
-            logLevel == LogLevel.warn ? MPVLogLevel.warn : MPVLogLevel.none);
+    MediaKit.ensureInitialized();
+    VideoPlayerMediaKit.registerWith(logLevel: logLevel);
   }
-
 }

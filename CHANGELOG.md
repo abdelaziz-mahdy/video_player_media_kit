@@ -1,3 +1,6 @@
+## 0.0.13
+* Dropping logLevel for MPVLogLevel
+* Expose Errors to video events (Fixing errors not being caught)
 ## 0.0.12
 * Used media_kit http headers
 ## 0.0.11

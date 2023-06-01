@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -60,9 +62,6 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         configuration: PlayerConfiguration(
             logLevel: logLevel)); // create a new video controller
 
-    (player.platform as libmpvPlayer).setProperty(
-        "demuxer-lavf-o", "protocol_whitelist=[file,tcp,tls,http,https]");
-
     int id = counter++;
     // print(id);
     players[id] = player;
@@ -111,6 +110,23 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       streams[textureId]!.add(VideoEvent(
         eventType: event ? VideoEventType.unknown : VideoEventType.completed,
       ));
+    });
+    players[textureId]!.streams.log.listen((event) {
+      final logEntry = {
+        'timestamp': DateTime.now().toUtc().toIso8601String(),
+        'level': event.level,
+        'prefix': event.prefix,
+        'message': event.text,
+      };
+
+      log(json.encode(logEntry));
+
+      if (event.level == 'error') {
+        streams[textureId]!.addError(PlatformException(
+          code: event.level.toString(),
+          message: event.text,
+        ));
+      }
     });
     players[textureId]!.streams.width.listen((event) {
       // print("init width,,");
