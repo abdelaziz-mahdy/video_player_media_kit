@@ -121,12 +121,12 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
       log(json.encode(logEntry));
 
-      if (event.level == 'error') {
-        streams[textureId]!.addError(PlatformException(
-          code: event.level.toString(),
-          message: event.text,
-        ));
-      }
+      // if (event.level == 'error') {
+      //   streams[textureId]!.addError(PlatformException(
+      //     code: event.level.toString(),
+      //     message: event.text,
+      //   ));
+      // }
     });
     players[textureId]!.streams.width.listen((event) {
       if (players[textureId]!.state.duration == Duration.zero) {
