@@ -12,8 +12,8 @@ import 'package:video_player/video_player.dart';
 import 'package:video_player_media_kit/video_player_media_kit.dart';
 
 void main() {
-  initVideoPlayerMediaKitIfNeeded(androidUseMediaKit: true
-  ,logLevel: MPVLogLevel.warn);
+  initVideoPlayerMediaKitIfNeeded(
+      androidUseMediaKit: true, logLevel: MPVLogLevel.warn);
   runApp(
     const MaterialApp(
       home: App(),

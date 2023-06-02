@@ -1,3 +1,5 @@
+## 0.0.14
+* Fixes future already completed errors (at the end of videos)
 ## 0.0.13
 * Dropping logLevel for MPVLogLevel
 * Expose Errors to video events (Fixing errors not being caught)

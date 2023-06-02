@@ -129,12 +129,18 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       }
     });
     players[textureId]!.streams.width.listen((event) {
+      if (players[textureId]!.state.duration == Duration.zero) {
+        return;
+      }
       // print("init width,,");
       if ((!durations.containsKey(textureId) ||
               (durations[textureId] ?? 0) !=
                   players[textureId]!.state.duration.inMicroseconds) &&
           (players[textureId]!.state.width != null &&
               players[textureId]!.state.height != null)) {
+        durations[textureId] =
+            players[textureId]!.state.duration.inMicroseconds;
+
         streams[textureId]!.add(VideoEvent(
           eventType: VideoEventType.initialized,
           duration: players[textureId]!.state.duration,
@@ -146,11 +152,18 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     });
     players[textureId]!.streams.height.listen((event) {
       // print("init height,,");
+      if (players[textureId]!.state.duration == Duration.zero) {
+        return;
+      }
+
       if ((!durations.containsKey(textureId) ||
               (durations[textureId] ?? 0) !=
                   players[textureId]!.state.duration.inMicroseconds) &&
           (players[textureId]!.state.width != null &&
               players[textureId]!.state.height != null)) {
+        durations[textureId] =
+            players[textureId]!.state.duration.inMicroseconds;
+
         streams[textureId]!.add(VideoEvent(
           eventType: VideoEventType.initialized,
           duration: players[textureId]!.state.duration,
@@ -161,6 +174,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       }
     });
     players[textureId]!.streams.duration.listen((event) {
+      // print("platform duration,${event.inMicroseconds}, old one is ${durations[textureId] ?? 0}");
       if (event != Duration.zero) {
         if ((!durations.containsKey(textureId) ||
                 (durations[textureId] ?? 0) != event.inMicroseconds) &&

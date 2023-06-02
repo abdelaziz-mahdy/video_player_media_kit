@@ -1,6 +1,6 @@
 name: video_player_media_kit
 description: this package allows video_player to work across platforms by using media_kit
-version: 0.0.13
+version: 0.0.14
 homepage: https://github.com/zezo357/video_player_media_kit
 
 environment:

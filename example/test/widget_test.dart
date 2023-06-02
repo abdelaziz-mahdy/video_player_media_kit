@@ -13,7 +13,7 @@ import 'package:flutter_meedu_videoplayer_example/main.dart';
 void main() {
   testWidgets('Verify Platform version', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(  const MaterialApp(
+    await tester.pumpWidget(const MaterialApp(
       home: App(),
     ));
 
