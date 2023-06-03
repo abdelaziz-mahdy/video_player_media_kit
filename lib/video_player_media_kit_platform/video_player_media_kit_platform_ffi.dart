@@ -106,10 +106,10 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
             .platform!
             .state
             .copyWith(position: players[textureId]!.platform!.state.duration);
+        streams[textureId]!.add(VideoEvent(
+          eventType: VideoEventType.completed,
+        ));
       }
-      streams[textureId]!.add(VideoEvent(
-        eventType: event ? VideoEventType.unknown : VideoEventType.completed,
-      ));
     });
     players[textureId]!.streams.log.listen((event) {
       final logEntry = {

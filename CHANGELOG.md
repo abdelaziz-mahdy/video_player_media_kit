@@ -1,4 +1,5 @@
-
+## 0.0.16
+* Fixed seeking going to end of file
 ## 0.0.15
 * Only log errors for now, until media_kit provides a better support for loading errors
 ## 0.0.14
