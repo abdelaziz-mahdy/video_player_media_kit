@@ -30,7 +30,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   Map<int, StreamController<VideoEvent>> streams = {};
 
   /// Registers this class as the default instance of [PathProviderPlatform].
-  static void registerWith({MPVLogLevel logLevel = MPVLogLevel.none}) {
+  static void registerWith({MPVLogLevel logLevel = MPVLogLevel.error}) {
     VideoPlayerPlatform.instance = VideoPlayerMediaKit(logLevel: logLevel);
 
     return;
@@ -48,6 +48,8 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     // print(controllers[textureId]);
     return Video(
       controller: controllers[textureId]!,
+      wakelock: false,
+      controls:NoVideoControls,
 
       // height: 1920.0,
       // width: 1080.0,
@@ -100,7 +102,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
   void initStreams(int textureId) {
     streams[textureId] = StreamController<VideoEvent>();
-    players[textureId]!.streams.completed.listen((event) {
+    players[textureId]!.stream.completed.listen((event) {
       if (event) {
         players[textureId]!.platform!.state = players[textureId]!
             .platform!
@@ -111,7 +113,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         ));
       }
     });
-    players[textureId]!.streams.log.listen((event) {
+    players[textureId]!.stream.log.listen((event) {
       final logEntry = {
         'timestamp': DateTime.now().toUtc().toIso8601String(),
         'level': event.level,
@@ -128,7 +130,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       //   ));
       // }
     });
-    players[textureId]!.streams.width.listen((event) {
+    players[textureId]!.stream.width.listen((event) {
       if (players[textureId]!.state.duration == Duration.zero) {
         return;
       }
@@ -150,7 +152,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         ));
       }
     });
-    players[textureId]!.streams.height.listen((event) {
+    players[textureId]!.stream.height.listen((event) {
       // print("init height,,");
       if (players[textureId]!.state.duration == Duration.zero) {
         return;
@@ -173,7 +175,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         ));
       }
     });
-    players[textureId]!.streams.duration.listen((event) {
+    players[textureId]!.stream.duration.listen((event) {
       // print("platform duration,${event.inMicroseconds}, old one is ${durations[textureId] ?? 0}");
       if (event != Duration.zero) {
         if ((!durations.containsKey(textureId) ||
@@ -192,7 +194,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
         }
       }
     });
-    players[textureId]!.streams.buffering.listen((event) {
+    players[textureId]!.stream.buffering.listen((event) {
       if (event) {
         streams[textureId]!.add(VideoEvent(
           eventType: VideoEventType.bufferingStart,
@@ -202,19 +204,19 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
             .add(VideoEvent(eventType: VideoEventType.bufferingEnd));
       }
     });
-    players[textureId]!.streams.buffer.listen((event) {
+    players[textureId]!.stream.buffer.listen((event) {
       streams[textureId]!.add(VideoEvent(
         buffered: [DurationRange(Duration.zero, event)],
         eventType: VideoEventType.bufferingUpdate,
       ));
     });
 
-    players[textureId]!.streams.error.listen((event) {
+    players[textureId]!.stream.error.listen((event) {
       // print("isBuffering $event");
 
       streams[textureId]!.addError(PlatformException(
-        code: event.code.toString(),
-        message: event.message,
+        code: "",
+        message: event,
       ));
     });
   }

@@ -1,3 +1,5 @@
+## 0.0.17
+* upgrade media_kit to 1.0.1
 ## 0.0.16
 * Fixed seeking going to end of file
 ## 0.0.15
