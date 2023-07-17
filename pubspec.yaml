@@ -1,10 +1,10 @@
 name: video_player_media_kit
 description: this package allows video_player to work across platforms by using media_kit
-version: 0.0.17
+version: 0.0.18
 homepage: https://github.com/zezo357/video_player_media_kit
 
 environment:
-  sdk: '>=2.16.2 <4.0.0'
+  sdk: '>=2.17.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:

@@ -6,7 +6,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
+import 'package:video_player_media_kit/video_player_media_kit_platform/media_kit_theme.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
+
+class VideoPlayer extends StatelessWidget {
+  final VideoController controller;
+  const VideoPlayer({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = MediaKitTheme.maybeOf(context);
+    if (theme != null) {
+      return Video(
+        controller: controller,
+        wakelock: false,
+        controls: NoVideoControls,
+        fill: theme.fillColor,
+
+        // height: 1920.0,
+        // width: 1080.0,
+        // scale: 1.0, // default
+        // showControls: false,
+      );
+    }
+    return Video(
+      controller: controller,
+      wakelock: false,
+      controls: NoVideoControls,
+
+      // height: 1920.0,
+      // width: 1080.0,
+      // scale: 1.0, // default
+      // showControls: false,
+    );
+  }
+}
 
 class VideoPlayerMediaKit extends VideoPlayerPlatform {
   VideoPlayerMediaKit({this.logLevel = MPVLogLevel.warn});
@@ -46,15 +80,9 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   @override
   Widget buildView(int textureId) {
     // print(controllers[textureId]);
-    return Video(
-      controller: controllers[textureId]!,
-      wakelock: false,
-      controls:NoVideoControls,
 
-      // height: 1920.0,
-      // width: 1080.0,
-      // scale: 1.0, // default
-      // showControls: false,
+    return VideoPlayer(
+      controller: controllers[textureId]!,
     );
   }
 
