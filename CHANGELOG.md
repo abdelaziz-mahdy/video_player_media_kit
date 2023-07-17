@@ -1,3 +1,7 @@
+## 0.0.19
+* renaming VideoPlayer to VideoPlayerMediaKitWidget to avoid conflicts
+## 0.0.18
+* MediaKitTheme to customize fill color
 ## 0.0.17
 * upgrade media_kit to 1.0.1
 ## 0.0.16

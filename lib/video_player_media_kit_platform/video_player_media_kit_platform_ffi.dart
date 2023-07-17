@@ -9,9 +9,9 @@ import 'package:media_kit_video/media_kit_video.dart';
 import 'package:video_player_media_kit/video_player_media_kit_platform/media_kit_theme.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 
-class VideoPlayer extends StatelessWidget {
+class VideoPlayerMediaKitWidget extends StatelessWidget {
   final VideoController controller;
-  const VideoPlayer({super.key, required this.controller});
+  const VideoPlayerMediaKitWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   Widget buildView(int textureId) {
     // print(controllers[textureId]);
 
-    return VideoPlayer(
+    return VideoPlayerMediaKitWidget(
       controller: controllers[textureId]!,
     );
   }
