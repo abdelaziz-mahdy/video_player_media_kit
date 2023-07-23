@@ -83,4 +83,10 @@ class VideoPlayerMediaKit implements VideoPlayerPlatform {
     // TODO: implement videoEventsFor
     throw UnimplementedError();
   }
+  
+  @override
+  Future<void> setWebOptions(int textureId, VideoPlayerWebOptions options) {
+    // TODO: implement setWebOptions
+    throw UnimplementedError();
+  }
 }

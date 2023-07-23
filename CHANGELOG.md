@@ -1,3 +1,5 @@
+## 0.0.21
+* fix web compilation
 ## 0.0.20
 * upgrade media_kit to 1.1.0
 ## 0.0.19
