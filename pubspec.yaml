@@ -1,6 +1,6 @@
 name: video_player_media_kit
 description: this package allows video_player to work across platforms by using media_kit
-version: 0.0.19
+version: 0.0.20
 homepage: https://github.com/zezo357/video_player_media_kit
 
 environment:
@@ -10,9 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  media_kit: ^1.0.1
+  media_kit: ^1.1.0
   # For video rendering.
-  media_kit_video: ^1.0.1
+  media_kit_video: ^1.1.0
   # media_kit:
   #   git:
   #     url: https://github.com/alexmercerind/media_kit
@@ -31,10 +31,9 @@ dependencies:
   #     path: ./media_kit_libs_macos_video
   # # Enables support for higher number of concurrent instances. Optional.
   media_kit_native_event_loop: ^1.0.6            # Support for higher number of concurrent instances & better performance.
-  media_kit_libs_macos_video: ^1.0.5             # macOS package for video native libraries.
-  media_kit_libs_windows_video: ^1.0.2           # Windows package for video native libraries.
+  media_kit_libs_macos_video: ^1.0.6             # macOS package for video native libraries.
+  media_kit_libs_windows_video: ^1.0.4           # Windows package for video native libraries.
   media_kit_libs_linux: ^1.0.2                   # GNU/Linux dependency package.
-
   video_player_platform_interface: ^6.0.1
   stream_transform: ^2.1.0
   universal_platform: ^1.0.0+1
