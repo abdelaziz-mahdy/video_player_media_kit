@@ -57,6 +57,12 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   ///used to know when player is initialized
   Map<int, int> durations = {};
 
+  /// `isLive`: A map that stores the live status of each video for which the player is initialized.
+  /// The keys are unique integers assigned to each player. A value of `true` indicates that the video is live,
+  /// while `false` indicates that it is not. This map is used to track when a player is initialized and whether
+  /// the associated video is live or not.
+  Map<int, bool> isLive = {};
+
   ///`counter`: An integer that is used to assign unique IDs to each player instance. The IDs are used as keys in the players, and controllers maps.
   int counter = 0;
 
@@ -162,6 +168,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       if (players[textureId]!.state.duration == Duration.zero) {
         return;
       }
+
       // print("init width,,");
       if ((!durations.containsKey(textureId) ||
               (durations[textureId] ?? 0) !=
@@ -204,6 +211,11 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
       }
     });
     players[textureId]!.stream.duration.listen((event) {
+      if ((durations[textureId] ?? 0) > 0) {
+        // print("$textureId is live from duration");
+        isLive[textureId] = true;
+        return;
+      }
       // print("platform duration,${event.inMicroseconds}, old one is ${durations[textureId] ?? 0}");
       if (event != Duration.zero) {
         if ((!durations.containsKey(textureId) ||
@@ -251,6 +263,10 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
   @override
   Future<Duration> getPosition(int textureId) async {
+    if (isLive[textureId] ?? false) {
+      // print("$textureId is live");
+      return Duration.zero;
+    }
     return players[textureId]!.platform!.state.position;
   }
 
@@ -273,6 +289,10 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
   @override
   Future<void> seekTo(int textureId, Duration position) async {
+    if (isLive[textureId] ?? false) {
+      position =
+          players[textureId]!.state.duration - Duration(milliseconds: 500);
+    }
     return players[textureId]!.seek(position);
   }
 

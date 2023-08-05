@@ -1,3 +1,5 @@
+## 0.0.22
+* fixing live errors
 ## 0.0.21
 * fix web compilation
 ## 0.0.20
