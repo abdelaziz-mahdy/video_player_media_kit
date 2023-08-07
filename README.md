@@ -8,10 +8,11 @@ Video Player Media Kit is a platform interface for video player using media_kit 
 
 Note: this package allows video_player to work across platforms
 
-* [video_player](https://pub.dev/packages/video_player) for Android, iOS, and web.
-* [media_kit](https://pub.dev/packages/media_kit) for desktop platforms.
+- [video_player](https://pub.dev/packages/video_player) for Android, iOS, and web.
+- [media_kit](https://pub.dev/packages/media_kit) for desktop platforms.
 
 ## How to use
+
 To use Video Player Media Kit in your application, follow the steps below:
 
 1. Setup
@@ -37,12 +38,11 @@ There are other ways to bundle these within your app package e.g. within Snap or
 - [Celluloid](https://github.com/celluloid-player/celluloid/blob/master/flatpak/io.github.celluloid_player.Celluloid.json)
 - [VidCutter](https://github.com/ozmartian/vidcutter/tree/master/_packaging)
 
-
 ## Note: macos is not tested (if you have any problems open an issue)
+
 ### macOS
 
 Everything ready.
-
 
 The minimum supported macOS version is 11.0,set MACOSX_DEPLOYMENT_TARGET = 11.0 `macos\Runner.xcodeproj\project.pbxproj`
 
@@ -59,12 +59,11 @@ Also, during the build phase, the following warnings are not critical and cannot
 # 1 "<command line>" 1
  ^
 <command line>:20:9: warning: 'POD_CONFIGURATION_DEBUG' macro redefined
-#define POD_CONFIGURATION_DEBUG 1 DEBUG=1 
+#define POD_CONFIGURATION_DEBUG 1 DEBUG=1
         ^
 #define POD_CONFIGURATION_DEBUG 1
         ^
 ```
-
 
 ### iOS (replace original video_player with media_kit one)
 
@@ -74,16 +73,17 @@ Also, during the build phase, the following warnings are not critical and cannot
 ```yaml
 dependencies:
   ...
-  media_kit_libs_ios_video: ^1.0.5               # iOS package for video native libraries.
+  media_kit_libs_ios_video: ^1.1.1                # iOS package for video native libraries.
 ```
 
 ### Android (replace original video_player with media_kit one)
+
 1. Just add this package in case you set androidUseMediaKit to true in initVideoPlayerMediaKitIfNeeded
 
 ```yaml
 dependencies:
   ...
-  media_kit_libs_android_video: ^1.2.0           # Android package for video native libraries.
+  media_kit_libs_android_video: ^1.3.0           # Android package for video native libraries.
 ```
 
 1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
@@ -94,6 +94,7 @@ dependencies:
 ```
 
 3.  Import the package in your Dart code
+
 ```
 import 'package:video_player_dart_vlc/video_player_media_kit.dart';
 ```
@@ -108,4 +109,3 @@ void main() {
 ```
 
 now video_player will work on any platform.
-

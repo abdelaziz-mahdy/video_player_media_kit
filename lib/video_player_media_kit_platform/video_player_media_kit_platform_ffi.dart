@@ -43,9 +43,13 @@ class VideoPlayerMediaKitWidget extends StatelessWidget {
 }
 
 class VideoPlayerMediaKit extends VideoPlayerPlatform {
-  VideoPlayerMediaKit({this.logLevel = MPVLogLevel.warn});
+  VideoPlayerMediaKit(
+      {this.logLevel = MPVLogLevel.warn, this.throwErrors = true});
 
   MPVLogLevel logLevel;
+
+  /// throw playback errors
+  bool throwErrors;
 
   ///`players`: A map that stores the initialized video players. The keys of the map are unique integers assigned to each player, and the values are instances of the Player class.
   Map<int, Player> players = {};
@@ -70,8 +74,10 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   Map<int, StreamController<VideoEvent>> streams = {};
 
   /// Registers this class as the default instance of [PathProviderPlatform].
-  static void registerWith({MPVLogLevel logLevel = MPVLogLevel.error}) {
-    VideoPlayerPlatform.instance = VideoPlayerMediaKit(logLevel: logLevel);
+  static void registerWith(
+      {MPVLogLevel logLevel = MPVLogLevel.error, bool throwErrors = true}) {
+    VideoPlayerPlatform.instance =
+        VideoPlayerMediaKit(logLevel: logLevel, throwErrors: throwErrors);
 
     return;
   }
@@ -253,7 +259,10 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
 
     players[textureId]!.stream.error.listen((event) {
       // print("isBuffering $event");
-
+      if (!throwErrors) {
+        
+        return;
+      }
       streams[textureId]!.addError(PlatformException(
         code: "",
         message: event,

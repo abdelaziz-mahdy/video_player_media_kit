@@ -1,3 +1,6 @@
+## 0.0.23
+* using latest version of media_kit
+* added throw errors in initVideoPlayerMediaKitIfNeeded
 ## 0.0.22
 * fixing live errors
 ## 0.0.21

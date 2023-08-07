@@ -16,7 +16,9 @@ import 'package:video_player_media_kit/video_player_media_kit.dart';
 /// - `iosUseMediaKit`: A boolean value indicating whether to register the plugin on iOS.
 /// - `androidUseMediaKit`: A boolean value indicating whether to register the plugin on Android.
 /// - `logLevel`: A `LogLevel` value indicating the desired log level.
+/// - `throwErrors`: when playing errors happens, throw error (can be disabled incase of false positives)
+
 void initVideoPlayerMediaKitIfNeeded(
     {bool iosUseMediaKit = false,
     bool androidUseMediaKit = false,
-    MPVLogLevel logLevel = MPVLogLevel.warn}) {}
+    MPVLogLevel logLevel = MPVLogLevel.warn,bool throwErrors = true}) {}
