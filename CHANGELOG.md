@@ -1,3 +1,5 @@
+## 0.0.25
+* set media_kit to 1.1.2+1 to avoid crash on launch
 ## 0.0.24
 * updating media_kit to latest version
 * removing ios and android video libs (to make them optional)

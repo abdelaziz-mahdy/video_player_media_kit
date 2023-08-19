@@ -83,7 +83,7 @@ dependencies:
 ```yaml
 dependencies:
   ...
-  media_kit_libs_android_video: ^1.3.0           # Android package for video native libraries.
+  media_kit_libs_android_video: 1.3.0           # Android package for video native libraries.
 ```
 
 1. Add the Video Player Media Kit dependency in your `pubspec.yaml` file:
