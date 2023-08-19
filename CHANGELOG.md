@@ -1,3 +1,7 @@
+## 0.0.24
+* updating media_kit to latest version
+* removing ios and android video libs (to make them optional)
+
 ## 0.0.23
 * using latest version of media_kit
 * added throw errors in initVideoPlayerMediaKitIfNeeded
