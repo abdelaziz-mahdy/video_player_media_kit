@@ -220,10 +220,10 @@ packages:
     dependency: transitive
     description:
       name: media_kit
-      sha256: eb47c2d51b7c06b319d8c776b47be912c5a4f53af7ab4814927a52a76442609e
+      sha256: d7a827080fb28f0ba4e8a7ab3f3e3f868fa817f0a94499640466ade84a1c31c9
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2+1"
+    version: "1.1.5"
   media_kit_libs_android_video:
     dependency: "direct main"
     description:
@@ -276,10 +276,10 @@ packages:
     dependency: transitive
     description:
       name: media_kit_video
-      sha256: "4b627683ef9e7f5cd049fd01be4b5deb5f31effc878503f108c81b19fd745040"
+      sha256: d4143a96d97965d025bbb8b88db0ebf301e3c4cfa10c7e2ad7fd47c86a7febae
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
+    version: "1.1.6"
   meta:
     dependency: transitive
     description:
@@ -525,13 +525,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.9"
-  video_player_media_kit:
+  video_player_cross_platform:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.25"
+    version: "0.0.26"
   video_player_platform_interface:
     dependency: transitive
     description:

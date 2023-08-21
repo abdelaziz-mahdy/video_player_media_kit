@@ -9,10 +9,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_player_media_kit/video_player_media_kit.dart';
+import 'package:video_player_cross_platform/video_player_cross_platform.dart';
 
 void main() {
-  initVideoPlayerMediaKitIfNeeded(
+  initVideoPlayerCrossPlatformIfNeeded(
       androidUseMediaKit: true, logLevel: MPVLogLevel.warn);
   runApp(
     const MaterialApp(

@@ -18,7 +18,7 @@ dependencies:
   flutter:
     sdk: flutter
   video_player: ^2.6.0
-  video_player_media_kit:
+  video_player_cross_platform:
     # When depending on this package from a real application you should use:
     #   flutter_meedu_videoplayer: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints

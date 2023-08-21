@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
-import 'package:video_player_media_kit/video_player_media_kit_platform/media_kit_theme.dart';
+import 'package:video_player_cross_platform/video_player_cross_platform_platform/media_kit_theme.dart';
 import 'package:video_player_platform_interface/video_player_platform_interface.dart';
 
-class VideoPlayerMediaKitWidget extends StatelessWidget {
+class VideoPlayerCrossPlatformWidget extends StatelessWidget {
   final VideoController controller;
-  const VideoPlayerMediaKitWidget({super.key, required this.controller});
+  const VideoPlayerCrossPlatformWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,8 @@ class VideoPlayerMediaKitWidget extends StatelessWidget {
   }
 }
 
-class VideoPlayerMediaKit extends VideoPlayerPlatform {
-  VideoPlayerMediaKit(
+class VideoPlayerCrossPlatform extends VideoPlayerPlatform {
+  VideoPlayerCrossPlatform(
       {this.logLevel = MPVLogLevel.warn, this.throwErrors = true});
 
   MPVLogLevel logLevel;
@@ -77,7 +77,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   static void registerWith(
       {MPVLogLevel logLevel = MPVLogLevel.error, bool throwErrors = true}) {
     VideoPlayerPlatform.instance =
-        VideoPlayerMediaKit(logLevel: logLevel, throwErrors: throwErrors);
+        VideoPlayerCrossPlatform(logLevel: logLevel, throwErrors: throwErrors);
 
     return;
   }
@@ -93,7 +93,7 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
   Widget buildView(int textureId) {
     // print(controllers[textureId]);
 
-    return VideoPlayerMediaKitWidget(
+    return VideoPlayerCrossPlatformWidget(
       controller: controllers[textureId]!,
     );
   }
@@ -260,7 +260,6 @@ class VideoPlayerMediaKit extends VideoPlayerPlatform {
     players[textureId]!.stream.error.listen((event) {
       // print("isBuffering $event");
       if (!throwErrors) {
-        
         return;
       }
       streams[textureId]!.addError(PlatformException(

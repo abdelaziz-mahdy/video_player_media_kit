@@ -1,10 +1,10 @@
 import 'package:media_kit/media_kit.dart';
 import 'package:universal_platform/universal_platform.dart';
-import 'package:video_player_media_kit/video_player_media_kit_platform/video_player_media_kit_platform_ffi.dart';
+import 'package:video_player_cross_platform/video_player_cross_platform_platform/video_player_cross_platform_platform.dart';
 
-/// Initializes the VideoPlayerMediaKit plugin if running on a supported platform.
+/// Initializes the VideoPlayerCrossPlatform plugin if running on a supported platform.
 ///
-/// On Windows, Linux, and macOS, this function registers the VideoPlayerMediaKit
+/// On Windows, Linux, and macOS, this function registers the VideoPlayerCrossPlatform
 /// plugin using the `registerWith()` method. On iOS, it also registers the plugin
 /// if the `iosUseMediaKit` parameter is set to `true`. On Android, it registers
 /// the plugin using the `registerWith()` method if the `androidUseMediaKit`
@@ -18,7 +18,7 @@ import 'package:video_player_media_kit/video_player_media_kit_platform/video_pla
 /// - `androidUseMediaKit`: A boolean value indicating whether to register the plugin on Android.
 /// - `logLevel`: A `LogLevel` value indicating the desired log level.
 /// - `throwErrors`: when playing errors happens, throw error (can be disabled incase of false positives)
-void initVideoPlayerMediaKitIfNeeded(
+void initVideoPlayerCrossPlatformIfNeeded(
     {bool iosUseMediaKit = false,
     bool androidUseMediaKit = false,
     MPVLogLevel logLevel = MPVLogLevel.warn,
@@ -28,14 +28,17 @@ void initVideoPlayerMediaKitIfNeeded(
           UniversalPlatform.isMacOS) &&
       !UniversalPlatform.isWeb) {
     MediaKit.ensureInitialized();
-    VideoPlayerMediaKit.registerWith(logLevel: logLevel,throwErrors: throwErrors);
+    VideoPlayerCrossPlatform.registerWith(
+        logLevel: logLevel, throwErrors: throwErrors);
   }
   if (UniversalPlatform.isIOS && iosUseMediaKit) {
     MediaKit.ensureInitialized();
-    VideoPlayerMediaKit.registerWith(logLevel: logLevel,throwErrors: throwErrors);
+    VideoPlayerCrossPlatform.registerWith(
+        logLevel: logLevel, throwErrors: throwErrors);
   }
   if (UniversalPlatform.isAndroid && androidUseMediaKit) {
     MediaKit.ensureInitialized();
-    VideoPlayerMediaKit.registerWith(logLevel: logLevel,throwErrors: throwErrors);
+    VideoPlayerCrossPlatform.registerWith(
+        logLevel: logLevel, throwErrors: throwErrors);
   }
 }

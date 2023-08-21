@@ -1,8 +1,8 @@
 ## Video Player Media Kit
 
-<a target="blank" href="https://pub.dev/packages/video_player_media_kit"><img src="https://img.shields.io/pub/v/video_player_media_kit?include_prereleases&style=flat-square"/></a>
-<img src="https://img.shields.io/github/last-commit/zezo357/video_player_media_kit/master?style=flat-square"/>
-<img src="https://img.shields.io/github/license/zezo357/video_player_media_kit?style=flat-square"/>
+<a target="blank" href="https://pub.dev/packages/video_player_cross_platform"><img src="https://img.shields.io/pub/v/video_player_cross_platform?include_prereleases&style=flat-square"/></a>
+<img src="https://img.shields.io/github/last-commit/zezo357/video_player_cross_platform/master?style=flat-square"/>
+<img src="https://img.shields.io/github/license/zezo357/video_player_cross_platform?style=flat-square"/>
 
 Video Player Media Kit is a platform interface for video player using media_kit to work on Windows and Linux and macos. This interface allows you to play videos seamlessly in your flutter application.
 
@@ -68,7 +68,7 @@ Also, during the build phase, the following warnings are not critical and cannot
 ### iOS (replace original video_player with media_kit one)
 
 1. The minimum supported iOS version is 13.0,set IPHONEOS_DEPLOYMENT_TARGET to 13.0 in `ios\Runner.xcodeproj\project.pbxproj`
-2. Just add this package in case you set iosUseMediaKit to true in initVideoPlayerMediaKitIfNeeded
+2. Just add this package in case you set iosUseMediaKit to true in initVideoPlayerCrossPlatformIfNeeded
 
 ```yaml
 dependencies:
@@ -78,7 +78,7 @@ dependencies:
 
 ### Android (replace original video_player with media_kit one)
 
-1. Just add this package in case you set androidUseMediaKit to true in initVideoPlayerMediaKitIfNeeded
+1. Just add this package in case you set androidUseMediaKit to true in initVideoPlayerCrossPlatformIfNeeded
 
 ```yaml
 dependencies:
@@ -90,20 +90,20 @@ dependencies:
 
 ```
 dependencies:
-  video_player_media_kit: ^0.0.20
+  video_player_cross_platform: ^0.0.20
 ```
 
 3.  Import the package in your Dart code
 
 ```
-import 'package:video_player_dart_vlc/video_player_media_kit.dart';
+import 'package:video_player_dart_vlc/video_player_cross_platform.dart';
 ```
 
 4.  Initialize the Video Player Media Kit interface in the main function of your app
 
 ```
 void main() {
-  initVideoPlayerMediaKitIfNeeded(); //parameter iosUseMediaKit can be used to make ios use media_kit instead of video_player
+  initVideoPlayerCrossPlatformIfNeeded(); //parameter iosUseMediaKit can be used to make ios use media_kit instead of video_player
   runApp(MyApp());
 }
 ```
