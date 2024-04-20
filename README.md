@@ -1,3 +1,6 @@
+# NOTE: package has been migrated to https://github.com/media-kit/media-kit/tree/main/video_player_media_kit
+
+
 ## Video Player Media Kit
 
 <a target="blank" href="https://pub.dev/packages/video_player_media_kit"><img src="https://img.shields.io/pub/v/video_player_media_kit?include_prereleases&style=flat-square"/></a>
